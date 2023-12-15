@@ -5,6 +5,9 @@ import { firebaseContext,AuthContext } from "../../Store/Firebasecontext";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Create = () => {
+
+  
+  
   const {firebase} = useContext(firebaseContext) 
   const {user} = useContext(AuthContext)
   const [name, setName] = useState("");
@@ -15,7 +18,11 @@ const Create = () => {
 
   const history = useHistory()
 
+
+
   const handleSubmit=()=>{
+
+    try {
       firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref})=>{
         ref.getDownloadURL().then((url)=>{
           console.log(url);
@@ -30,6 +37,10 @@ const Create = () => {
           history.push('/')
         })
       })
+    } catch (error) {
+      alert(error.message)
+    }
+      
   }
 
   return (
@@ -67,7 +78,7 @@ const Create = () => {
             <br />
           
           <br />
-          <img alt="Posts" width="200px" height="200px" src={image? URL.createObjectURL(image):' '}></img>
+          {image && <img alt="Posts" width="200px" height="200px" src={image? URL.createObjectURL(image):' '}></img>}
           
             <br />
             <input onChange={(e)=>setImage(e.target.files[0])} type="file" />

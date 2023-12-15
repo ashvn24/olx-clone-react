@@ -18,7 +18,7 @@ function View() {
       })
     })
   
-  }, [])
+  }, [firebase,post])
   
 
   return (

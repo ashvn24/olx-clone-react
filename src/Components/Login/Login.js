@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import Logo from '../../olx-logo.png';
 import './Login.css';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
 
 function Login() {
 
@@ -25,7 +26,7 @@ function Login() {
   return (
     <div>
       <div className="loginParentDiv">
-        <img width="200px" height="200px" src={Logo}></img>
+        <img width="200px" height="200px" src={Logo} alt="logo"></img>
         <form onSubmit={handleSubmit}>
           <label htmlFor="fname">Email</label>
           <br />
@@ -52,9 +53,7 @@ function Login() {
           <br />
           <button>Login</button>
         </form>
-        <a onClick={()=>{
-          history.push('/signup')
-        }}>Signup</a>
+        <Link to='/signup' style={{TextDecoder:'null',color:'black'}}>Signup</Link>
       </div>
     </div>
   );

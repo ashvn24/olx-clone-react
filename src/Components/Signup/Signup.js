@@ -3,9 +3,10 @@ import React, { useState, useContext } from "react";
 import Logo from "../../olx-logo.png";
 import "./Signup.css";
 import { firebaseContext } from "../../Store/Firebasecontext";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
 
 export default function Signup() {
+
   const history = useHistory()
   const [Username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +28,12 @@ export default function Signup() {
             username: Username,
             phone: phone,
           }).then(()=>{
-            history.push('/login')
+            // history.push('/login')
+            firebase.auth().signInWithEmailAndPassword(email,password).then(()=>{
+              history.push('/')
+            }).catch((error)=>{
+              alert(error.message)
+            })
           })
         });
       });
@@ -84,7 +90,7 @@ export default function Signup() {
           <br />
           <button>Signup</button>
         </form>
-        <a onClick={()=>{history.push('/login')}}>Login</a>
+        <Link to='/login' style={{TextDecoder:'null',color:'black'}}>Login</Link>
       </div>
     </div>
   );
